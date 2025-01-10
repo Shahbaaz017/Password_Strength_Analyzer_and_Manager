@@ -28,7 +28,7 @@ const Homepage = () => {
               <a className="nav-link" href="/Register">Register</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Why Us</a>
+              <a className="nav-link" href="/WhyUseUs">Why Us</a>
             </li>
           </ul>
         </div>
