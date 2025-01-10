@@ -22,13 +22,13 @@ const Homepage = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <a className="nav-link" href="#">Login</a>
+              <a className="nav-link" href="/Login">Login</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Register</a>
+              <a className="nav-link" href="/Register">Register</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Why Use Us</a>
+              <a className="nav-link" href="#">Why Us</a>
             </li>
           </ul>
         </div>
