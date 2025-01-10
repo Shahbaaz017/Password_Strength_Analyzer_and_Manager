@@ -1,0 +1,121 @@
+.password-checker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full screen height */
+  width: 100%; /* Full screen width */
+  background: linear-gradient(to bottom, #141e30, #243b55); /* Security-themed background */
+  color: white;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box; /* Include padding and border in width/height calculations */
+  padding: 0 20px; /* Padding for smaller screens */
+}
+
+.animation-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+.lock-icon {
+  position: absolute;
+  width: 60px;
+  height: 90px;
+  border: 4px solid #00ff00;
+  border-radius: 5px;
+  top: 55px;
+  left: 70px;
+  background: transparent;
+}
+
+.lock-icon:before {
+  content: "";
+  position: absolute;
+  width: 45px;
+  height: 30px;
+  border: 4px solid #00ff00;
+  border-radius: 15px;
+  top: -35px;
+  left: 7.5px;
+}
+
+.wave {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(0, 255, 0, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  background: #2c3e50;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.form-container h1 {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #00ff00;
+  border-radius: 5px;
+  background: #1a252f;
+  color: #fff;
+  outline: none;
+}
+
+.strength {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.btn {
+  width: 100%; /* Full width buttons */
+  margin-top: 10px;
+}
+
+.btn-secondary {
+  background-color: #34495e;
+  border: none;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: white;
+}
+
+.btn-link {
+  background: none;
+  color: #00ff00;
+  text-decoration: underline;
+  cursor: pointer;
+}
