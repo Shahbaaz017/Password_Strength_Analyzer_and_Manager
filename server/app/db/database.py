@@ -9,10 +9,10 @@ load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")
 MONGO_DB = os.getenv("MONGO_DB")
 
-# Create the MongoDB client
+# Create MongoDB client
 client = AsyncIOMotorClient(MONGO_URI)
 database = client[MONGO_DB]
 
-# Example collection references
+# Reference to collections
 users_collection = database["users"]
 passwords_collection = database["passwords"]
