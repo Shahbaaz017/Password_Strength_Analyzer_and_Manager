@@ -65,7 +65,7 @@ const MainPage = () => {
               </li>
               <li className="mb-3">
                 <Link
-                  to="/analytics"
+                  to="/Analytics"
                   className="btn btn-primary w-100 text-start text-white"
                 >
                   Analytics

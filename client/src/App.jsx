@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import WhyUseUs from "./pages/WhyUseUs";
 import MainPage from "./pages/MainPage";
 import AddPass from "./pages/add_pass";
+import AnalyticsPage from "./pages/AnalyticsPage";
 const App = () => {
   return (
     <Router>
@@ -18,7 +19,7 @@ const App = () => {
         <Route path="/password-checker" element={<PasswordStrengthChecker />} />
 
         <Route path="/Register" element={<Register />} />
-
+        <Route path="/Analytics" element={<AnalyticsPage />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/WhyUseUs" element={<WhyUseUs />} />
         <Route path="/MainPage" element={<MainPage />} />
