@@ -1,16 +1,32 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './add_pass.css';
+import axios from "axios";  // Import Axios
 
 const ManagePass = () => {
   const [serviceLink, setServiceLink] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(""); // Add a field for the user's email
+  const [vaultPassword, setVaultPassword] = useState(""); // Add a field for the vault password
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle password management submission logic here
-    console.log("Adding password for:", { serviceLink, username, password });
+    try {
+      // Send the POST request to the Flask server
+      const response = await axios.post("http://localhost:5000/api/passwords/add", {
+        email: email,          // Send the email
+        vault_password: vaultPassword,  // Send the vault password
+        password_name: serviceLink,  // Use serviceLink as the name for the password
+        password: password,  // Send the password to be stored
+      });
+
+      console.log("Password added:", response.data);
+      alert("Password added successfully!");
+    } catch (error) {
+      console.error("Error adding password:", error);
+      alert("Error adding password.");
+    }
   };
 
   return (
@@ -51,6 +67,30 @@ const ManagePass = () => {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="vaultPassword" className="form-label">Vault Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="vaultPassword"
+            value={vaultPassword}
+            onChange={(e) => setVaultPassword(e.target.value)}
             required
           />
         </div>
