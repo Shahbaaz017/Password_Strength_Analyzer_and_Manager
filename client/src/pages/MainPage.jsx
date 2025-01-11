@@ -1,30 +1,34 @@
-import React from "react";
+import axios from "axios"; // Import Axios
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import NavForAll from "../components/NavForAll";
 import Footer from "../components/Footer";
+import NavForAll from "../components/NavForAll";
 import StarsBackground from "./StarsBackground";
 
 const MainPage = () => {
-  const managedPasswords = [
-    {
-      website: "Facebook",
-      username: "john_doe",
-      password: "********",
-      link: "https://www.facebook.com",
-    },
-    {
-      website: "Google",
-      username: "jane.doe@gmail.com",
-      password: "********",
-      link: "https://www.google.com",
-    },
-    {
-      website: "Twitter",
-      username: "janedoe123",
-      password: "********",
-      link: "https://www.twitter.com",
-    },
-  ];
+  const [managedPasswords, setManagedPasswords] = useState([]);
+  const [email, setEmail] = useState(""); // Add email state
+  const [vaultPassword, setVaultPassword] = useState(""); // Add vault password state
+
+  // Fetch passwords when the component is mounted
+  useEffect(() => {
+    if (email && vaultPassword) {
+      fetchPasswords();
+    }
+  }, [email, vaultPassword]);
+
+  const fetchPasswords = async () => {
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/api/passwords/get-all", {
+        email: email,
+        vault_password: vaultPassword,
+      });
+      setManagedPasswords(response.data.passwords);
+    } catch (error) {
+      console.error("Error fetching passwords:", error);
+      alert("Error fetching passwords.");
+    }
+  };
 
   const handleDelete = (index) => {
     console.log(`Delete item at index: ${index}`);

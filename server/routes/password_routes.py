@@ -48,3 +48,31 @@ def get_password():
     decrypted_password = decrypt(password_data['encrypted_password'], key)
     
     return jsonify({"password": decrypted_password})
+@password_routes.route('/get-all', methods=['POST'])
+def get_all_passwords():
+    db = current_app.config['db']
+    data = request.json
+
+    # Fetch the user from the database
+    user_data = db.users.find_one({"email": data['email']})
+    if not user_data:
+        return jsonify({"error": "User not found"}), 404
+
+    # Fetch all passwords for the user from the vault
+    passwords_data = db.passwords.find({"user_id": data['email']})
+    if not passwords_data:
+        return jsonify({"error": "No passwords found"}), 404
+
+    # Decrypt each password before sending it to the client
+    passwords = []
+    for password_data in passwords_data:
+        key = derive_key(data['vault_password'], bytes.fromhex(user_data['salt']))
+        decrypted_password = decrypt(password_data['encrypted_password'], key)
+        passwords.append({
+            "website": password_data['password_name'],
+            "username": password_data['user_id'],
+            "password": decrypted_password,
+            "link": f"https://www.{password_data['password_name'].lower()}.com",  # You can customize this for each website
+        })
+
+    return jsonify({"passwords": passwords})
