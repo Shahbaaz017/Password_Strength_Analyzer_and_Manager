@@ -5,6 +5,7 @@ import PasswordStrengthChecker from "./pages/PasswordStrengthChecker";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import WhyUseUs from "./pages/WhyUseUs";
+import MainPage from "./pages/MainPage";
 const App = () => {
   return (
     <Router>
@@ -19,6 +20,7 @@ const App = () => {
 
         <Route path="/Login" element={<Login />} />
         <Route path="/WhyUseUs" element={<WhyUseUs />} />
+        <Route path="/MainPage" element={<MainPage />} />
       </Routes>
     </Router>
   );
