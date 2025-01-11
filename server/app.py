@@ -21,7 +21,7 @@ app.config['db'] = client.password_manager
 
 # Register blueprints
 app.register_blueprint(user_routes, url_prefix='/users')
-app.register_blueprint(password_routes, url_prefix='/passwords')
+app.register_blueprint(password_routes, url_prefix='/api/passwords')
 
 if __name__ == '__main__':
     app.run(debug=True)
