@@ -48,17 +48,26 @@ const MainPage = () => {
             <h4 className="mb-4">Navigation</h4>
             <ul className="list-unstyled">
               <li className="mb-3">
-                <Link to="/password-checker" className="btn btn-dark w-100 text-start text-white">
+                <Link
+                  to="/password-checker"
+                  className="btn btn-primary w-100 text-start text-white"
+                >
                   Password Strength Checker
                 </Link>
               </li>
               <li className="mb-3">
-                <Link to="/manage-passwords" className="btn btn-dark w-100 text-start text-white">
-                  Manage Passwords
+                <Link
+                  to="/add-password"
+                  className="btn btn-primary w-100 text-start text-white"
+                >
+                  Add Password
                 </Link>
               </li>
               <li className="mb-3">
-                <Link to="/analytics" className="btn btn-dark w-100 text-start text-white">
+                <Link
+                  to="/analytics"
+                  className="btn btn-primary w-100 text-start text-white"
+                >
                   Analytics
                 </Link>
               </li>
