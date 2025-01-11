@@ -3,3 +3,6 @@ bcrypt==3.2.0
 pycryptodome==3.10.1
 pyotp==2.6.0
 pymongo==3.12.1
+flask_cors
+mnemonic
+werkzeug==2.0.3
