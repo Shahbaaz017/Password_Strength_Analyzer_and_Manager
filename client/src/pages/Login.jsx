@@ -17,10 +17,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Prepare mnemonic as a space-separated string
     const mnemonicString = mnemonic.join(" ").trim();
-
+  
     try {
       const response = await fetch("http://127.0.0.1:5000/users/login", {
         method: "POST",
@@ -33,13 +33,17 @@ const Login = () => {
           seed_phrase: mnemonicString,
         }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         console.log("Login successful:", data);
         alert("Login successful!");
-
+  
+        // Save email to localStorage
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("vaultPassword", vaultPassword);
+  
         // Navigate to the main page after login
         navigate("/MainPage");
       } else {
@@ -50,6 +54,7 @@ const Login = () => {
       alert("An error occurred. Please try again later.");
     }
   };
+  
 
   return (
     <div className="container mt-5">

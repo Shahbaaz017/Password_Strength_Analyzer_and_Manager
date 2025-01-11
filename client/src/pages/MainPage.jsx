@@ -1,5 +1,6 @@
-import axios from "axios"; // Import Axios
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import NavForAll from "../components/NavForAll";
@@ -7,21 +8,32 @@ import StarsBackground from "./StarsBackground";
 
 const MainPage = () => {
   const [managedPasswords, setManagedPasswords] = useState([]);
-  const [email, setEmail] = useState(""); // Add email state
-  const [vaultPassword, setVaultPassword] = useState(""); // Add vault password state
+  const [email, setEmail] = useState(""); // Store email
+  const [vaultPassword, setVaultPassword] = useState(""); // Store vault password
+  const [showPopup, setShowPopup] = useState(false); // To toggle the popup visibility
+  const [userEmail, setUserEmail] = useState("");
+  const [userVaultPassword, setUserVaultPassword] = useState("");
 
-  // Fetch passwords when the component is mounted
   useEffect(() => {
-    if (email && vaultPassword) {
-      fetchPasswords();
-    }
-  }, [email, vaultPassword]);
+    const storedEmail = localStorage.getItem("userEmail");
+    const storedVaultPassword = localStorage.getItem("vaultPassword");
 
-  const fetchPasswords = async () => {
+    // Check if credentials are available in localStorage
+    if (storedEmail && storedVaultPassword) {
+      setEmail(storedEmail);
+      setVaultPassword(storedVaultPassword);
+      fetchPasswords(storedEmail, storedVaultPassword);
+    } else {
+      setShowPopup(true); // Show popup if any data is missing
+    }
+  }, []);
+
+  // Handle fetching passwords
+  const fetchPasswords = async (userEmail, password) => {
     try {
       const response = await axios.post("http://127.0.0.1:5000/api/passwords/get-all", {
-        email: email,
-        vault_password: vaultPassword,
+        email: userEmail,
+        vault_password: password,
       });
       setManagedPasswords(response.data.passwords);
     } catch (error) {
@@ -30,9 +42,18 @@ const MainPage = () => {
     }
   };
 
-  const handleDelete = (index) => {
-    console.log(`Delete item at index: ${index}`);
-    // Add delete logic here
+  // Handle the logic to save email and vault password in localStorage
+  const handleSaveCredentials = () => {
+    if (userEmail && userVaultPassword) {
+      localStorage.setItem("userEmail", userEmail);
+      localStorage.setItem("vaultPassword", userVaultPassword);
+      setEmail(userEmail);
+      setVaultPassword(userVaultPassword);
+      setShowPopup(false); // Close the popup after saving
+      fetchPasswords(userEmail, userVaultPassword); // Fetch passwords after saving
+    } else {
+      alert("Please provide both email and vault password.");
+    }
   };
 
   return (
@@ -120,16 +141,6 @@ const MainPage = () => {
                         >
                           Modify
                         </Link>
-                        <button
-                          className="btn btn-sm"
-                          style={{
-                            backgroundColor: "#ffc107", // Custom color for Delete
-                            color: "#000",
-                          }}
-                          onClick={() => handleDelete(index)}
-                        >
-                          Delete
-                        </button>
                       </td>
                     </tr>
                   ))}
@@ -142,6 +153,50 @@ const MainPage = () => {
         {/* Footer */}
         <Footer />
       </div>
+
+      {/* Modal for missing email/vault password */}
+      <Modal show={showPopup} onHide={() => setShowPopup(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Missing Credentials</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="vaultPassword" className="form-label">
+                Vault Password
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                id="vaultPassword"
+                value={userVaultPassword}
+                onChange={(e) => setUserVaultPassword(e.target.value)}
+                required
+              />
+            </div>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSaveCredentials}
+            >
+              Save Credentials
+            </button>
+          </form>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
