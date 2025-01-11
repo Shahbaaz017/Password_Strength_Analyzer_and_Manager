@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './register.css';
 
 const Register = () => {
@@ -9,14 +10,9 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showMnemonic, setShowMnemonic] = useState(false);
   const [mnemonic, setMnemonic] = useState([]);
+  const navigate = useNavigate(); // Add navigate hook
 
-/*************  ✨ Codeium Command ⭐  *************/
-  /**
-   * Updates the mnemonic state at the given index with the new value.
-   * @param {number} index The index in the mnemonic array to update.
-   * @param {string} value The new value to set at the given index.
-   */
-/******  718f1d27-8acd-4a4a-b972-9895808fc964  *******/  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (vaultPassword !== confirmPassword) {
@@ -54,6 +50,7 @@ const Register = () => {
     e.preventDefault();
     console.log("Submitted mnemonic:", mnemonic);
     alert("Mnemonic saved successfully!");
+    navigate("/login"); // Navigate to the login page
   };
 
   return (
