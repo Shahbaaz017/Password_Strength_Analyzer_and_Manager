@@ -9,7 +9,7 @@ import {
 } from "chart.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// Register the required components for Chart.js
+// Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const AnalyticsPage = () => {
@@ -105,7 +105,7 @@ const AnalyticsPage = () => {
 
       {/* Return Button */}
       <div className="text-center mt-4">
-        <Link to="/" className="btn btn-primary">
+        <Link to="/MainPage" className="btn btn-primary">
           Return to Main Page
         </Link>
       </div>
