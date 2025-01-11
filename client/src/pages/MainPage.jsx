@@ -6,10 +6,30 @@ import StarsBackground from "./StarsBackground";
 
 const MainPage = () => {
   const managedPasswords = [
-    { website: "Facebook", username: "john_doe", password: "********" },
-    { website: "Google", username: "jane.doe@gmail.com", password: "********" },
-    { website: "Twitter", username: "janedoe123", password: "********" },
+    {
+      website: "Facebook",
+      username: "john_doe",
+      password: "********",
+      link: "https://www.facebook.com",
+    },
+    {
+      website: "Google",
+      username: "jane.doe@gmail.com",
+      password: "********",
+      link: "https://www.google.com",
+    },
+    {
+      website: "Twitter",
+      username: "janedoe123",
+      password: "********",
+      link: "https://www.twitter.com",
+    },
   ];
+
+  const handleDelete = (index) => {
+    console.log(`Delete item at index: ${index}`);
+    // Add delete logic here
+  };
 
   return (
     <div className="position-relative">
@@ -37,6 +57,11 @@ const MainPage = () => {
                   Manage Passwords
                 </Link>
               </li>
+              <li className="mb-3">
+                <Link to="/analytics" className="btn btn-dark w-100 text-start text-white">
+                  Analytics
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -51,6 +76,8 @@ const MainPage = () => {
                     <th>Website</th>
                     <th>Username</th>
                     <th>Password</th>
+                    <th>Website Link</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -59,6 +86,38 @@ const MainPage = () => {
                       <td>{item.website}</td>
                       <td>{item.username}</td>
                       <td>{item.password}</td>
+                      <td>
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-info"
+                        >
+                          Visit
+                        </a>
+                      </td>
+                      <td>
+                        <Link
+                          to={`/modify-password/${index}`}
+                          className="btn btn-sm me-2"
+                          style={{
+                            backgroundColor: "#17a2b8", // Custom color for Modify
+                            color: "#fff",
+                          }}
+                        >
+                          Modify
+                        </Link>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: "#ffc107", // Custom color for Delete
+                            color: "#000",
+                          }}
+                          onClick={() => handleDelete(index)}
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
