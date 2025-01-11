@@ -4,8 +4,12 @@ from pymongo import MongoClient
 from routes.password_routes import password_routes  # Import password routes from the separate file
 from services.encryption import derive_key, encrypt, decrypt
 from models.user import User
+from flask_cors import CORS
+  # Enable CORS for all routes
+
 import os
 app = Flask(__name__)
+CORS(app)
 
 # Configurations
 app.config['MONGO_URI'] = "mongodb://localhost:27017/password_manager"  # MongoDB URI
