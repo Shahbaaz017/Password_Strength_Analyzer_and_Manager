@@ -1,22 +1,30 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './login.css';
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [mnemonic, setMnemonic] = useState(Array(12).fill(""));
+
+  const handleMnemonicChange = (index, value) => {
+    const newMnemonic = [...mnemonic];
+    newMnemonic[index] = value;
+    setMnemonic(newMnemonic);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle login submission (you can add your login logic here)
-    console.log("Logging in with:", { username, password });
+    console.log("Logging in with:", { username, password, mnemonic });
   };
 
   return (
-    <div className="container mt-5 text-white">
-      <h2 className="text-center">Login</h2>
+    <div className="container mt-5">
+      <h2>Login</h2>
 
       {/* Login Form */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-center">
         <div className="mb-3">
           <label htmlFor="username" className="form-label">Username</label>
           <input 
@@ -41,7 +49,23 @@ const Login = () => {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">Login</button>
+        {/* Recovery Phrase */}
+        <h5>Enter Your 12-Word Recovery Phrase</h5>
+        <div className="row">
+          {mnemonic.map((word, index) => (
+            <div className="col-4" key={index}>
+              <input
+                type="text"
+                className="form-control"
+                value={word}
+                onChange={(e) => handleMnemonicChange(index, e.target.value)}
+                required
+              />
+            </div>
+          ))}
+        </div>
+
+        <button type="submit" className="btn btn-primary mt-4">Login</button>
       </form>
     </div>
   );
