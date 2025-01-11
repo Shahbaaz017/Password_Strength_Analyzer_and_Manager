@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [mnemonic, setMnemonic] = useState(Array(12).fill(""));
+  const navigate = useNavigate();
 
   const handleMnemonicChange = (index, value) => {
     const newMnemonic = [...mnemonic];
@@ -15,8 +17,11 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login submission (you can add your login logic here)
+    // Handle login submission logic
     console.log("Logging in with:", { username, password, mnemonic });
+
+    // Navigate to the main page
+    navigate("/MainPage");
   };
 
   return (
