@@ -1,9 +1,10 @@
 from flask import Flask
 from routes.user_routes import user_routes
 from pymongo import MongoClient
-
-
-
+from routes.password_routes import password_routes  # Import password routes from the separate file
+from services.encryption import derive_key, encrypt, decrypt
+from models.user import User
+import os
 app = Flask(__name__)
 
 # Configurations
@@ -16,6 +17,7 @@ app.config['db'] = client.password_manager
 
 # Register blueprints
 app.register_blueprint(user_routes, url_prefix='/users')
+app.register_blueprint(password_routes, url_prefix='/passwords')
 
 if __name__ == '__main__':
     app.run(debug=True)
