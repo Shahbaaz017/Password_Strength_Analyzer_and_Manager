@@ -134,7 +134,7 @@ const MainPage = () => {
                             color: "#fff",
                           }}
                         >
-                          Modify
+                          Delete
                         </Link>
                       </td>
                     </tr>
