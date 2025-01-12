@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const NavForAll = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [email, setEmail] = useState("");
 
-  // Mock user data
-  const user = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-  };
+  // Fetch email from localStorage on component mount
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("userEmail");
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
 
   return (
     <nav className="navbar navbar-dark bg-dark px-3">
@@ -26,9 +29,8 @@ const NavForAll = () => {
           >
             <div className="px-3 py-2">
               <p className="mb-1">
-                <strong>{user.name}</strong>
+                <strong>{email ? email : "Guest"}</strong>
               </p>
-              <p className="mb-2 text-muted">{user.email}</p>
               <button
                 className="btn btn-sm btn-outline-secondary w-100 mb-2"
                 onClick={() => setShowDropdown(false)}
